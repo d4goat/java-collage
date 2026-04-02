@@ -3,27 +3,22 @@ public class appMahasiswa {
         cMahasiswa mhs1 = new cMahasiswa();
         cMataKuliah BP2 = new cMataKuliah("SI");
         cRuangUjian R202 = new cRuangUjian(30);
-
         mhs1.setNPM("25082010193");
         mhs1.setNama("Achmadillah Yusuf Faqih Febrianto");
         mhs1.setIPK(3.7);
         mhs1.setSKS(19);
         mhs1.setAlamat("Surabaya");
-
         System.out.println("Nama Mhs : " + mhs1.getNama());
         System.out.println("NPM : " + mhs1.getNPM());
         System.out.println("Alamat Asal : " + mhs1.getAlamat());
         System.out.println(mhs1.toString());
-
         BP2.setNamaMK("Bahasa Pemrograman 2");
         BP2.setKodeMK("2025");
         BP2.setSKS(3);
-
         R202.setNamaRuang("202");
         R202.setKapasitas(50);
         R202.setMK(BP2);
         R202.tambahPeserta(mhs1);
-
         System.out.print("Peserta Ujian Ruang ");
         System.out.print(R202.getNamaRuang());
         System.out.println(" : " + R202.getMahasiswa());

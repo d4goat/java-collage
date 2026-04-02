@@ -8,6 +8,8 @@ public class appSiamik {
         ArrayList<cMatkul> mk = new ArrayList<>();
         ArrayList<cKRS> krs = new ArrayList<>();
         ArrayList<cProdi> prodi = new ArrayList<>();
+        ArrayList<cDosenTetap> dosenList = new ArrayList<>();
+        ArrayList<cTendik> tendikList = new ArrayList<>();
         int pilih, pilih2;
         int idx = -1;
 
@@ -17,7 +19,8 @@ public class appSiamik {
             System.out.println("2. Mata Kuliah");
             System.out.println("3. Kartu Rencana Studi");
             System.out.println("4. Program Studi");
-            System.out.println("5. Exit");
+            System.out.println("5. Pegawai");
+            System.out.println("6. Exit");
             System.out.print("Pilih = ");
             pilih = sc.nextInt();
             System.out.println();
@@ -705,13 +708,222 @@ public class appSiamik {
                     break;
 
                 case 5:
+                    System.out.println("Sub Menu Pegawai");
+                    System.out.println("1. Tambah Dosen");
+                    System.out.println("2. Update Dosen");
+                    System.out.println("3. Hapus Dosen");
+                    System.out.println("4. Tambah Tendik");
+                    System.out.println("5. Update Tendik");
+                    System.out.println("6. Hapus Tendik");
+                    System.out.println("7. Lihat Pegawai");
+                    System.out.print("Pilih = ");
+                    pilih2 = sc.nextInt();
+
+                    switch (pilih2) {
+                        case 1: // Tambah Dosen
+                            System.out.println("== Tambah Dosen ==");
+                            System.out.print("Masukkan ID = ");
+                            String idDsn = sc.next();
+                            // Check for duplicate ID
+                            boolean idExists = false;
+                            for (cDosenTetap d : dosenList) {
+                                if (d.getID().equalsIgnoreCase(idDsn)) {
+                                    idExists = true;
+                                    break;
+                                }
+                            }
+                            if (idExists) {
+                                System.out.println("ID sudah ada!");
+                                break;
+                            }
+                            System.out.print("Masukkan Nama = ");
+                            sc.nextLine(); // clear buffer
+                            String namaDsn = sc.nextLine();
+                            System.out.print("Masukkan Jabatan Fungsional = ");
+                            String jabatan = sc.nextLine();
+                            System.out.print("Masukkan NIDN = ");
+                            String nidn = sc.next();
+                            dosenList.add(new cDosenTetap(idDsn, namaDsn, jabatan, nidn));
+                            System.out.println("Data dosen ditambahkan...");
+                            break;
+
+                        case 2: // Update Dosen
+                            System.out.println("== Update Dosen ==");
+                            System.out.print("Masukkan ID = ");
+                            idDsn = sc.next();
+                            cDosenTetap dosenToUpdate = null;
+                            for (cDosenTetap d : dosenList) {
+                                if (d.getID().equalsIgnoreCase(idDsn)) {
+                                    dosenToUpdate = d;
+                                    break;
+                                }
+                            }
+                            if (dosenToUpdate == null) {
+                                System.out.println("Data tidak ditemukan!");
+                                break;
+                            }
+                            System.out.println("Data ditemukan: " + dosenToUpdate.getName());
+                            System.out.print("Nama baru = ");
+                            sc.nextLine(); // clear buffer
+                            String newNama = sc.nextLine();
+                            System.out.print("Jabatan baru = ");
+                            String newJabatan = sc.nextLine();
+                            System.out.print("NIDN baru = ");
+                            String newNidn = sc.next();
+                            System.out.print("Simpan? 1.Ya, 2.Tidak : ");
+                            int konf = sc.nextInt();
+                            if (konf == 1) {
+                                // Using setter methods (we need to add these to cDosenTetap)
+                                dosenToUpdate.setName(newNama);
+                                dosenToUpdate.setJabatan(newJabatan);
+                                dosenToUpdate.setNidn(newNidn);
+                                System.out.println("Data diperbarui...");
+                            } else {
+                                System.out.println("Batal update...");
+                            }
+                            break;
+
+                        case 3: // Hapus Dosen
+                            System.out.println("== Hapus Dosen ==");
+                            System.out.print("Masukkan ID = ");
+                            idDsn = sc.next();
+                            idx = -1;
+                            for (int i = 0; i < dosenList.size(); i++) {
+                                if (dosenList.get(i).getID().equalsIgnoreCase(idDsn)) {
+                                    idx = i;
+                                    break;
+                                }
+                            }
+                            if (idx != -1) {
+                                System.out.println("Data ditemukan");
+                                System.out.print("Dihapus? 1.Ya, 2.Tidak : ");
+                                pilih2 = sc.nextInt();
+                                if (pilih2 == 1) {
+                                    dosenList.remove(idx);
+                                    System.out.println("Data dihapus...");
+                                } else {
+                                    System.out.println("Batal hapus...");
+                                }
+                            } else {
+                                System.out.println("Data tidak ada...");
+                            }
+                            break;
+
+                        case 4: // Tambah Tendik
+                            System.out.println("== Tambah Tendik ==");
+                            System.out.print("Masukkan ID = ");
+                            String idTdk = sc.next();
+                            boolean idTdkExists = false;
+                            for (cTendik t : tendikList) {
+                                if (t.getID().equalsIgnoreCase(idTdk)) {
+                                    idTdkExists = true;
+                                    break;
+                                }
+                            }
+                            if (idTdkExists) {
+                                System.out.println("ID sudah ada!");
+                                break;
+                            }
+                            System.out.print("Masukkan Nama = ");
+                            sc.nextLine();
+                            String namaTdk = sc.nextLine();
+                            System.out.print("Masukkan Golongan = ");
+                            String golongan = sc.nextLine();
+                            tendikList.add(new cTendik(idTdk, namaTdk, golongan));
+                            System.out.println("Data tendik ditambahkan...");
+                            break;
+
+                        case 5: // Update Tendik
+                            System.out.println("== Update Tendik ==");
+                            System.out.print("Masukkan ID = ");
+                            idTdk = sc.next();
+                            cTendik tendikToUpdate = null;
+                            for (cTendik t : tendikList) {
+                                if (t.getID().equalsIgnoreCase(idTdk)) {
+                                    tendikToUpdate = t;
+                                    break;
+                                }
+                            }
+                            if (tendikToUpdate == null) {
+                                System.out.println("Data tidak ditemukan!");
+                                break;
+                            }
+                            System.out.println("Data ditemukan: " + tendikToUpdate.getName());
+                            System.out.print("Nama baru = ");
+                            sc.nextLine();
+                            String newNamaTdk = sc.nextLine();
+                            System.out.print("Golongan baru = ");
+                            String newGol = sc.nextLine();
+                            System.out.print("Simpan? 1.Ya, 2.Tidak : ");
+                            konf = sc.nextInt();
+                            if (konf == 1) {
+                                tendikToUpdate.setName(newNamaTdk);
+                                tendikToUpdate.setGolongan(newGol);
+                                System.out.println("Data diperbarui...");
+                            } else {
+                                System.out.println("Batal update...");
+                            }
+                            break;
+
+                        case 6: // Hapus Tendik
+                            System.out.println("== Hapus Tendik ==");
+                            System.out.print("Masukkan ID = ");
+                            idTdk = sc.next();
+                            idx = -1;
+                            for (int i = 0; i < tendikList.size(); i++) {
+                                if (tendikList.get(i).getID().equalsIgnoreCase(idTdk)) {
+                                    idx = i;
+                                    break;
+                                }
+                            }
+                            if (idx != -1) {
+                                System.out.println("Data ditemukan");
+                                System.out.print("Dihapus? 1.Ya, 2.Tidak : ");
+                                pilih2 = sc.nextInt();
+                                if (pilih2 == 1) {
+                                    tendikList.remove(idx);
+                                    System.out.println("Data dihapus...");
+                                } else {
+                                    System.out.println("Batal hapus...");
+                                }
+                            } else {
+                                System.out.println("Data tidak ada...");
+                            }
+                            break;
+
+                        case 7: // Lihat Pegawai
+                            System.out.println("== Data Pegawai ==");
+                            System.out.println("--- Dosen Tetap ---");
+                            if (dosenList.isEmpty()) {
+                                System.out.println("Tidak ada data dosen.");
+                            } else {
+                                for (cDosenTetap d : dosenList) {
+                                    d.info(); // Polymorphic call (overridden)
+                                }
+                            }
+                            System.out.println("\n--- Tenaga Kependidikan ---");
+                            if (tendikList.isEmpty()) {
+                                System.out.println("Tidak ada data tendik.");
+                            } else {
+                                for (cTendik t : tendikList) {
+                                    t.info(); // Polymorphic call
+                                }
+                            }
+                            break;
+
+                        default:
+                            System.out.println("Pilihan tidak valid!");
+                    }
+                    break;
+
+                case 6:
                     System.out.println("Terima kasih...");
                     break;
 
                 default:
                     System.out.println("Pilihan tidak valid!");
             }
-        } while (pilih != 5);
+        } while (pilih != 6);
 
         sc.close();
     }
@@ -963,5 +1175,128 @@ class cProdi {
 
     public String ToString() {
         return kodeProdi + " " + namaProdi + " " + akreditasi;
+    }
+}
+
+class cPegawai {
+    private String ID;
+    private String name;
+    protected double gaji;
+
+    cPegawai(String id, String nm) {
+        ID = id;
+        name = nm;
+        System.out.println("Constructor pegawai dibuat...");
+    }
+
+    public void info() {
+        System.out.println(ID + "\t" + name + "\t");
+    }
+
+    public void setID(String id) {
+        ID = id;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setName(String nm) {
+        name = nm;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setGaji(double g) {
+        gaji = g;
+    }
+
+    public double getGaji() {
+        return gaji;
+    }
+}
+
+class cDosen extends cPegawai {
+    private String jabatan;
+
+    cDosen(String id, String nm, String j) {
+        super(id, nm);
+        jabatan = j;
+        System.out.println("Constructor Dosen dibuat...");
+    }
+
+    @Override
+    public void info() {
+        super.info();
+        System.out.println(jabatan);
+    }
+
+    public void setJabatan(String j) {
+        jabatan = j;
+    }
+
+    public String getJabatan() {
+        return jabatan;
+    }
+}
+
+class cDosenTetap extends cDosen {
+    private String nidn;
+    private double remunerasi;
+
+    cDosenTetap(String id, String nm, String jb, String ni) {
+        super(id, nm, jb);
+        nidn = ni;
+        System.out.println("Object dosen tetap dibuat...");
+    }
+
+    @Override
+    public void info() {
+        super.info(); // prints ID, Nama, jabfung
+        System.out.println(nidn);
+    }
+
+    // Setters & Getters for nidn and remunerasi
+    public void setNidn(String ni) {
+        nidn = ni;
+    }
+
+    public String getNidn() {
+        return nidn;
+    }
+
+    public void setRemunerasi(double r) {
+        remunerasi = r;
+    }
+
+    public double getRemunerasi() {
+        return remunerasi;
+    }
+}
+
+class cTendik extends cPegawai {
+    private String golongan;
+
+    cTendik(String id, String nm, String gol) {
+        super(id, nm);
+        golongan = gol;
+        System.out.println("Object tendik dibuat...");
+    }
+
+    @Override
+    public void info() {
+        super.info(); // prints ID and Nama
+        System.out.println(golongan);
+    }
+
+    // Setter & Getter for golongan
+    public void setGolongan(String gol) {
+        golongan = gol;
+    }
+
+    public String getGolongan() {
+        return golongan;
     }
 }
