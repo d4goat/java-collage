@@ -13,6 +13,35 @@ public class appSiamik {
         int pilih, pilih2;
         int idx = -1;
 
+        // --- DUMMY DATA ---
+        cMhs mhs1 = new cMhs("Budi Santoso", "23081010011");
+        cMhs mhs2 = new cMhs("Andi Wijaya", "23081010022");
+        mhs.add(mhs1);
+        mhs.add(mhs2);
+
+        cMatkul mk1 = new cMatkul("IF101", "Algoritma Pemrograman", 3);
+        cMatkul mk2 = new cMatkul("IF102", "Basis Data", 3);
+        mk.add(mk1);
+        mk.add(mk2);
+
+        cKRS krs1 = new cKRS(3, 2023);
+        krs1.setMhs(mhs1);
+        krs1.addMatkul(mk1);
+        krs1.addMatkul(mk2);
+        krs.add(krs1);
+
+        cProdi prodi1 = new cProdi("08", "Informatika", "Unggul");
+        prodi1.addMhs(mhs1);
+        prodi1.addMhs(mhs2);
+        prodi.add(prodi1);
+
+        dosenList.add(new cDosenTetap("198001", "Dr. Eko", "Lektor Kepala", "07111222"));
+        dosenList.add(new cDosenTetap("198002", "Ir. Ratih", "Asisten Ahli", "07111333"));
+
+        tendikList.add(new cTendik("20001", "Sri Wahyuni", "II/c"));
+        tendikList.add(new cTendik("20002", "Ahmad Fauzi", "III/a"));
+        // --- END DUMMY DATA ---
+
         do {
             System.out.println("\n=== MENU SIAMIK ===");
             System.out.println("1. Mahasiswa");
